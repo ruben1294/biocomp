@@ -1,5 +1,6 @@
 % El contenido de este script es para realizar las corridas de las distintas configuraciones neuronales
-% adem醩 de realizar las 20 iteraciones, guarda el Excel con los distintos MSE's y R's
+% adem谩s de realizar las 20 iteraciones, guarda un archivo de Excel con los distintos par谩metros MSE's y R's.
+% Este c贸digo construye todas las configuraciones de las redes mandando llamar a la funci贸n RedValid.m, la cual es parte del Neural Network Toolbox de MATLAB. La versi贸n utilizada de RedValid.m para este trabajo es una peque帽a modificaci贸n realizada para ajustarla a nuestro trabajo.
 [FCN,F,c,HOV,t1,t2] = deal(['trainscg';'trainlmh';'trainscg'],['SCG';'LMh';'BRh'],1,1,5,1);
 NumNe = Neuronas1C();
 p =(xlsread('NF.xlsx','Tesis','A2:J3976'))';
@@ -20,7 +21,7 @@ for HOV = 1:2
                     for i = 1:20
                         [tr,performance,testPerformance,net,r,testTargets] = RedValid(NumNe(l),z,norm_data,HOV,FCN(c,1:7));
                         save(['N1_' F(c,1:3) num2str(NumNe(l)) '_' val num2str(i) '.mat']);
-                        % Calcula los par醡etros de validaci髇.
+                        % Calcula los par谩metros de validaci贸n.
                         [testMSE(v,1),trainingMSE(v,1),R2(v,:),rMSE(v,1)] = Parametros(testPerformance,performance,r);
                         R2(v,:) = r';
                         
@@ -56,7 +57,7 @@ for HOV = 1:2
                     for i = 1:20
                         [tr,performance,testPerformance,net,r,testTargets] = RedValid(NumNe(l),z,norm_data,HOV,FCN(c,1:7));
                         save(['N1_' F(c,1:2) num2str(NumNe(l)) '_' val num2str(i) '.mat']);
-                        % Calcula los par醡etros de validaci髇.
+                        % Calcula los par谩metros de validaci贸n.
                         [testMSE(v,1),trainingMSE(v,1),R2(v,:),rMSE(v,1)] = Parametros(testPerformance,performance,r);
                         R2(v,:) = r';
                         
@@ -91,7 +92,7 @@ for HOV = 1:2
                     for i = 1:20
                         [tr,performance,testPerformance,net,r,testTargets] = RedValid(NumNe(l),z,norm_data,HOV,FCN(c,1:8));
                         save(['N1_' F(c,1:2) num2str(NumNe(l)) '_' val num2str(i) '.mat']);
-                        % Calcula los par醡etros de validaci髇.
+                        % Calcula los par谩metros de validaci贸n.
                         [testMSE(v,1),trainingMSE(v,1),R2(v,:),rMSE(v,1)] = Parametros(testPerformance,performance,r);
                         
                         % Calcula las contribuciones relativas de las variables de entrada.
@@ -118,7 +119,7 @@ for HOV = 1:2
                         v = v+1;
                     end
                 end
-                % Crea el Excel con todos los par醡etros.
+                % Crea el Excel con todos los par谩metros.
                 EW1C(nena,testMSE,trainingMSE,rMSE,R2,IRGT,F(c,1:2),val,acc5,acc1);
                 clc;
             otherwise
